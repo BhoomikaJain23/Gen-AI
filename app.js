@@ -11,7 +11,7 @@ async function main() {
         temperature:0.8,
         // top_p:0.2,
         //stop ke andr vo string likhte hai jo ki jb vo aaya tb llm stop ho jayega
-        stop:'ga',//Negative
+       // stop:'ga',//Negative
         max_completion_tokens:1000,
         frequency_penalty:1,
         presence_penalty:1,
@@ -19,7 +19,9 @@ async function main() {
         messages: [
             {
                 role: 'system',
-                content:'you are Jarvis,a smart review grader.Your task is to analyze the given review and return the sentiment.Classify the review as positive, negative or neutral.Output must be a single word.',
+                content:`you are Jarvis,a smart review grader.Your task is to analyze the given review and return the sentiment.
+                Classify the review as positive, negative or neutral.You must return the valid JSON structure.
+                example:{"sentiment":"Negative"}`,
             }
             ,{
                 role: 'user',
@@ -29,7 +31,7 @@ async function main() {
         ]
     });
 
-    console.log(response.choices[0].message.content);
+    console.log(JSON.parse(response.choices[0].message.content));
 }
 
 main();
